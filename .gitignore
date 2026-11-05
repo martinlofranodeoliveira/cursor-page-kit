@@ -1,0 +1,7 @@
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+coverage/
+.phpunit.cache/
+.DS_Store

@@ -1,0 +1,35 @@
+{
+    "name": "martinlofranodeoliveira/cursor-page-kit",
+    "description": "A forward keyset-pagination core with validated opaque cursors and a PDO/SQLite example.",
+    "version": "0.1.0",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://lofranotecnologia.com.br",
+    "authors": [
+        {
+            "name": "Lofrano Tecnologia",
+            "homepage": "https://lofranotecnologia.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=8.4.0",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CursorPageKit\\": "src/"
+        },
+        "files": [
+            "src/bootstrap.php"
+        ]
+    },
+    "scripts": {
+        "test": "php tests/run.php",
+        "demo": "php bin/cursor-page.php demo"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

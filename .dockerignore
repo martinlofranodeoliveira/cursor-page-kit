@@ -1,0 +1,7 @@
+.git
+.github
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+coverage

@@ -1,0 +1,28 @@
+name: PHP checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Build local PHP 8.4 test image
+        run: docker build --tag cursor-page-kit-ci .
+        timeout-minutes: 5
+      - name: Lint PHP
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,size=32m cursor-page-kit-ci sh -c 'find src bin tests -name "*.php" -print -exec php -l {} \;'
+        timeout-minutes: 2
+      - name: Regression and adversarial tests
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,size=32m cursor-page-kit-ci php tests/run.php
+        timeout-minutes: 2
+      - name: Offline human-readable demo
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,size=32m cursor-page-kit-ci php bin/cursor-page.php demo
+        timeout-minutes: 1
+      - name: Offline machine-readable demo
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,size=32m cursor-page-kit-ci php bin/cursor-page.php demo --json
+        timeout-minutes: 1
