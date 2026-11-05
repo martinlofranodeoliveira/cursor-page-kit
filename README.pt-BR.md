@@ -8,7 +8,7 @@ Biblioteca pequena de paginação progressiva por chave composta e exemplo CLI c
 
 ## Instalação e execução
 
-Requer PHP 8.4+ de 64 bits, PDO_SQLite e SQLite 3.37+. Extraia o projeto e execute na raiz; não há etapa de instalação de dependências PHP. Os testes de subprocessos exigem `proc_open`, que não é utilizado pela biblioteca nem pela CLI.
+Requer PHP 8.4+ de 64 bits, PDO_SQLite e SQLite 3.51.3+. Extraia o projeto e execute na raiz; não há etapa de instalação de dependências PHP. Os testes de subprocessos exigem `proc_open`, que não é utilizado pela biblioteca nem pela CLI.
 
 ```sh
 php -v
@@ -144,3 +144,7 @@ Detalhes em [contrato](docs/contract.md), [projeto](docs/design.md), [segurança
 ## Codificação do banco
 
 O banco SQLite deve usar UTF-8. Bancos UTF-16 são recusados antes da leitura dos registros, pois a conversão de TEXT para BLOB usa a codificação do banco e a ferramenta limita e emite os títulos em UTF-8. Essa restrição evita alterações silenciosas nos títulos.
+
+## Runtime SQLite
+
+Use a [compilação com checksum e qualificação por SQL](docs/sqlite-runtime.md). A aplicação exige SQLite 3.51.3+ realmente vinculado; a imagem fornecida usa 3.54.1. Compile com `docker build -t cursor-page-kit-sqlite .` e execute os comandos documentados de teste/demo com `docker run --rm --network none cursor-page-kit-sqlite <argv>`. Instalações nativas devem fornecer SQLite na faixa suportada.

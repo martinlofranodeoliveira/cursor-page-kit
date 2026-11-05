@@ -5,3 +5,11 @@
 *.db
 *.db-*
 coverage
+build
+dist
+__pycache__
+*.egg-info
+.venv
+venv
+.env
+.env.*

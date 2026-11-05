@@ -13,3 +13,5 @@
 - English/Portuguese READMEs, contract/design notes and non-publishing CI checks.
 
 No release, deployment, benchmark or production-readiness claim is made.
+
+* Qualify actual linked SQLite 3.51.3+ and provide a checksum-pinned SQLite 3.54.1 runtime build; preserve journal and transaction semantics.

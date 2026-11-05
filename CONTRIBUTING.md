@@ -4,7 +4,7 @@ Thank you for considering a contribution to Lofrano Tecnologia's Cursor Page Kit
 
 ## Local checks
 
-Use 64-bit PHP 8.4+, PDO_SQLite and SQLite 3.37+. Enable `proc_open` for tests. No Composer installation is required.
+Use 64-bit PHP 8.4+, PDO_SQLite and SQLite 3.51.3+. Enable `proc_open` for tests. No Composer installation is required.
 
 ```sh
 php tests/run.php

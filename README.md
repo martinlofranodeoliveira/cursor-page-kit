@@ -8,7 +8,7 @@ A small forward keyset-pagination library and PDO/SQLite CLI example. Repeated s
 
 ## Install and run
 
-Use 64-bit PHP 8.4+ with PDO_SQLite and SQLite 3.37+. Download/extract the project and run from its root; there is no dependency-install step. `proc_open` must be enabled for subprocess tests, but is not used by the library or CLI.
+Use 64-bit PHP 8.4+ with PDO_SQLite and SQLite 3.51.3+. Download/extract the project and run from its root; there is no dependency-install step. `proc_open` must be enabled for subprocess tests, but is not used by the library or CLI.
 
 ```sh
 php -v
@@ -144,3 +144,7 @@ See [contract](docs/contract.md), [design and trade-offs](docs/design.md), [secu
 ## Database encoding
 
 Only UTF-8 SQLite databases are supported. UTF-16 databases are rejected before rows are read: SQLite encodes a TEXT-to-BLOB cast using its database encoding, while this tool bounds and emits UTF-8 title bytes. This restriction prevents silently altered titles.
+
+## SQLite runtime
+
+Use the [checksum-pinned build and SQL qualification](docs/sqlite-runtime.md). The application requires actual linked SQLite 3.51.3+; the supplied image uses 3.54.1. Build with `docker build -t cursor-page-kit-sqlite .`, then run the documented test/demo argv with `docker run --rm --network none cursor-page-kit-sqlite <argv>`. Native installations must independently provide the supported SQLite range.

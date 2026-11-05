@@ -7,6 +7,16 @@ use CursorPageKit\KeysetPredicate;
 use CursorPageKit\Pager;
 use CursorPageKit\SqliteDatabase;
 
+test('unqualified linked SQLite versions are rejected without changing caller rows', function (): void {
+    foreach (['3.37.0', '3.40.1', '3.46.1', '3.51.2'] as $version) {
+        $pdo = memoryItems([[1, 0, 'Synthetic runtime guard']]);
+        $pdo->sqliteCreateFunction('sqlite_version', static fn (): string => $version, 0);
+        throws(fn () => new Pager($pdo));
+        same('Synthetic runtime guard', $pdo->query('SELECT title FROM items WHERE id=1')->fetchColumn());
+        same('memory', $pdo->query('PRAGMA journal_mode')->fetchColumn());
+    }
+});
+
 test('empty and single-item public pages', function (): void {
     same(['items' => [], 'has_more' => false, 'next_cursor' => null], (new Pager(memoryItems()))->page(2));
     same([

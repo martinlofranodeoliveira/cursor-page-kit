@@ -2,7 +2,7 @@
 
 ## Runtime and loading
 
-Require `src/bootstrap.php`. It requires PHP 8.4+ with 64-bit integers. The codec/predicate have no database dependency; database operations require PDO_SQLite backed by SQLite 3.37+. No Composer dependency or runtime network access is required.
+Require `src/bootstrap.php`. It requires PHP 8.4+ with 64-bit integers. The codec/predicate have no database dependency; database operations require PDO_SQLite backed by SQLite 3.51.3+. No Composer dependency or runtime network access is required.
 
 Public classes live in `CursorPageKit`. Validation and wrapped storage failures throw `PageKitException`. Its message is safe for diagnostics; a chained exception may contain sensitive database details and must not be displayed to untrusted users. Unrecoverable runtime conditions can still throw other PHP exceptions/errors.
 

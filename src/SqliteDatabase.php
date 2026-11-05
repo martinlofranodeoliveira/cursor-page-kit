@@ -49,9 +49,12 @@ final class SqliteDatabase
             if ($pdo->query('PRAGMA main.encoding')->fetchColumn() !== 'UTF-8') {
                 throw new PageKitException('A UTF-8 SQLite database is required.');
             }
-            $version = $pdo->query('SELECT sqlite_version()')->fetchColumn();
-            if (!is_string($version) || version_compare($version, '3.37.0', '<')) {
-                throw new PageKitException('SQLite 3.37+ is required.');
+            $identity = $pdo->query('SELECT sqlite_version() AS version, sqlite_source_id() AS source_id')->fetch(PDO::FETCH_ASSOC);
+            if (!is_array($identity) || !is_string($identity['version'])
+                || !preg_match('/^[0-9]+\.[0-9]+\.[0-9]+$/D', $identity['version'])
+                || version_compare($identity['version'], '3.51.3', '<')
+                || !is_string($identity['source_id']) || $identity['source_id'] === '') {
+                throw new PageKitException('Actual linked SQLite 3.51.3+ is required.');
             }
             $statement = $pdo->prepare(
                 'SELECT type, wr FROM pragma_table_list WHERE schema = :schema AND name = :name LIMIT 2'
